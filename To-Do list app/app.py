@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import *
 
+def add_task():
+    
+
 window=tk.Tk()
 window.title("To-Do list App")
-window.geometry('700x500')
+window.geometry('450x500')
 window.resizable(0,0)
 
 frame_app=Frame(window)
@@ -22,7 +25,7 @@ tasklable.place(x=5,y=5)
 
 entrybox=tk.Entry(window)
 entrybox.place(x=15,y=25)
-entrybutton=tk.Button(window, width=15, text="Add new task")
+entrybutton=tk.Button(window, width=15, text="Add new task", command=add_task)
 entrybutton.place(x=150,y=20)
 
 update_button=tk.Button(window, width=15, text="Update task")
