@@ -1,9 +1,16 @@
 import tkinter as tk
 from tkinter import *
+import tkinter.messagebox
 
 def add_task():
-    
-
+    text=entrybox.get()
+    entrybox.delete(0, tk.END)
+    if text=="":
+        tk.messagebox.showwarning(title="Warning!",message="Please Enter some Text")
+    else:
+        listbox.insert(END ,text)
+        tk.messagebox.showinfo("Info", "Task added to the list.")
+        
 window=tk.Tk()
 window.title("To-Do list App")
 window.geometry('450x500')
