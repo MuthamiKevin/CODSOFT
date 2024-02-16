@@ -1,6 +1,35 @@
 import tkinter as tk
 from tkinter import messagebox
 
+def update_task():
+    selected_index = listbox.curselection()  # Get the index of the selected item
+    if not selected_index:
+        messagebox.showwarning("Warning!", "Please select an item to update.")
+    else:
+        # Ask for confirmation before updating
+        confirmation = messagebox.askyesno("Confirmation", "Are you sure you want to edit this item?")
+        if confirmation:
+            new_text = entrybox.get()
+            listbox.delete(selected_index[0])  # Delete the old item using the correct index
+            listbox.insert(selected_index[0], new_text)  # Insert the updated item
+            items[selected_index[0]] = new_text  # Update the item in the items list
+            entrybox.delete(0, tk.END)  # Clear the entry box
+            update_numbers()
+
+       
+        
+
+def delete():
+    selected=listbox.curselection()
+    if not selected: 
+        messagebox.showwarning("Warning", "Please select a task to delete.")
+    else:
+        selected_item = listbox.get(selected)
+        response = messagebox.askyesno("Confirmation", f"Are you sure you want to delete '{selected_item}'?")
+        if response:  
+            listbox.delete(selected[0]) 
+       
+
 def add_task():
     text = entrybox.get()
     entrybox.delete(0, tk.END)
@@ -10,11 +39,11 @@ def add_task():
         listbox.insert(tk.END, text)
         messagebox.showinfo("Info", "Task added to the list.")
         
-        items.append(text)  # Store the item in a list
-        update_numbers()  # Update the numbering of items
+        items.append(text)  
+        update_numbers()  
 
 def update_numbers():
-    listbox.delete(0, tk.END)  # Clear the listbox
+    listbox.delete(0, tk.END) 
     for i, item in enumerate(items, start=1):
         listbox.insert(tk.END, f"{i}. {item}")
 
@@ -44,10 +73,10 @@ entrybutton.place(x=150, y=20)
 
 items = []  # List 
 
-update_button = tk.Button(window, width=15, text="Update task")
+update_button = tk.Button(window, width=15, text="Update task",command=update_task)
 update_button.place(x=15, y=300)
 
-delete_button = tk.Button(window, width=15, text="Delete task")
+delete_button = tk.Button(window, width=15, text="Delete task", command=delete)
 delete_button.place(x=15, y=350)
 
 mark_button = tk.Button(window, width=15, text="Mark task as done")
