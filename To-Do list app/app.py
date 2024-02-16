@@ -1,12 +1,24 @@
-import tkinter
+import tkinter as tk
 from tkinter import *
 
-window=Tk()
+window=tk.Tk()
 window.title("To-Do list App")
-window.geometry('400x300')
+window.geometry('700x500')
 window.resizable(0,0)
 
 frame_app=Frame(window)
-frame_app.pack()
+frame_app.place(x=50,y=50)
+listbox=Listbox(frame_app, height=15,width=50)
+listbox.pack(side=tk.LEFT)
+
+
+tasklable=tk.Label(window, text="Add new task here.")
+tasklable.place(x=5,y=5)
+
+entrybox=tk.Entry(window)
+entrybox.place(x=15,y=25)
+entrybutton=tk.Button(window, width=15, text="Add new task")
+entrybutton.place(x=150,y=20)
+
 
 window.mainloop()
