@@ -10,13 +10,12 @@ def update_task():
         confirmation = messagebox.askyesno("Confirmation", "Are you sure you want to edit this item?")
         if confirmation:
             new_text = entrybox.get()
-            listbox.delete(selected_index[0])  # Delete the old item using the correct index
-            listbox.insert(selected_index[0], new_text)  # Insert the updated item
+            listbox.delete(selected_index)  # Delete the old item
+            listbox.insert(selected_index, new_text)  # Insert the updated item
             items[selected_index[0]] = new_text  # Update the item in the items list
             entrybox.delete(0, tk.END)  # Clear the entry box
             update_numbers()
 
-       
         
 
 def delete():
