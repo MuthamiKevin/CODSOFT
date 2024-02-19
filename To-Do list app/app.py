@@ -64,7 +64,7 @@ window.geometry('450x500')
 window.resizable(0, 0)
 
 frame_app = tk.Frame(window)
-frame_app.place(x=50, y=50)
+frame_app.place(x=10, y=5)
 
 listbox = tk.Listbox(frame_app, height=15, width=50)
 listbox.pack(side=tk.LEFT)
@@ -74,13 +74,13 @@ scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 listbox.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=listbox.yview)
 
-tasklabel = tk.Label(window, text="Add new task here.")
-tasklabel.place(x=5, y=5)
+tasklabel = tk.Label(window, text="Add new task here :")
+tasklabel.place(x=15, y=250)
 
-entrybox = tk.Entry(window)
-entrybox.place(x=15, y=25)
+entrybox = tk.Entry(window, width=15)
+entrybox.place(x=15, y=270)
 entrybutton = tk.Button(window, width=15, text="Add new task", command=add_task)
-entrybutton.place(x=150, y=20)
+entrybutton.place(x=150, y=265)
 
 items = [] 
 
