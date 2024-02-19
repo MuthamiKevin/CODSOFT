@@ -60,7 +60,7 @@ def update_numbers():
 
 window = tk.Tk()
 window.title("To-Do list App")
-window.geometry('450x500')
+window.geometry('350x400')
 window.resizable(0, 0)
 
 frame_app = tk.Frame(window)
@@ -80,17 +80,17 @@ tasklabel.place(x=15, y=250)
 entrybox = tk.Entry(window, width=15)
 entrybox.place(x=15, y=270)
 entrybutton = tk.Button(window, width=15, text="Add new task", command=add_task)
-entrybutton.place(x=150, y=265)
+entrybutton.place(x=200, y=265)
 
 items = [] 
 
 update_button = tk.Button(window, width=15, text="Update task",command=update_task)
-update_button.place(x=15, y=300)
+update_button.place(x=15, y=320)
 
 delete_button = tk.Button(window, width=15, text="Delete task", command=delete)
-delete_button.place(x=15, y=350)
+delete_button.place(x=100, y=370)
 
 mark_button = tk.Button(window, width=15, text="Mark task as done", command= mark_as_done)
-mark_button.place(x=15, y=400)
+mark_button.place(x=200, y=320)
 
 window.mainloop()
