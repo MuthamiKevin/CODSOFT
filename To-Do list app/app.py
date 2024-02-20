@@ -39,6 +39,8 @@ def delete():
         response = messagebox.askyesno("Confirmation", f"Are you sure you want to delete '{selected_item}'?")
         if response:  
             listbox.delete(selected[0]) 
+            items.pop(selected[0])  
+            update_numbers()
        
 
 def add_task():
@@ -65,7 +67,7 @@ window = tk.Tk()
 window.title("To-Do list App")
 window.geometry('350x400')
 window.resizable(0, 0)
-
+window.configure(bg="lightblue")
 
 frame_app = tk.Frame(window)
 frame_app.place(x=10, y=5)
@@ -81,7 +83,7 @@ scrollbar.config(command=listbox.yview)
 tasklabel = tk.Label(window, text="Add new task here :")
 tasklabel.place(x=15, y=250)
 
-entrybox = tk.Entry(window, width=15)
+entrybox = tk.Entry(window, width=20)
 entrybox.place(x=15, y=270)
 entrybutton = tk.Button(window, width=15, text="Add new task", command=add_task)
 entrybutton.place(x=200, y=265)
