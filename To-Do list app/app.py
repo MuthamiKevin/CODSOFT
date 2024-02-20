@@ -52,16 +52,20 @@ def add_task():
         
         items.append(text)  
         update_numbers()  
-
 def update_numbers():
     listbox.delete(0, tk.END) 
     for i, item in enumerate(items, start=1):
         listbox.insert(tk.END, f"{i}. {item}")
+    items.clear()
+    for index in range(listbox.size()):
+        items.append(listbox.get(index).split('. ', 1)[1])
+
 
 window = tk.Tk()
 window.title("To-Do list App")
 window.geometry('350x400')
 window.resizable(0, 0)
+
 
 frame_app = tk.Frame(window)
 frame_app.place(x=10, y=5)
