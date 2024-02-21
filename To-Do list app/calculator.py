@@ -1,44 +1,55 @@
-def add(x, y):
-    return x + y
+import tkinter as tk
+from tkinter import messagebox
 
-def subtract(x, y):
-    return x - y
+def calculate():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        operation = operation_var.get()
 
-def multiply(x, y):
-    return x * y
+        if operation == "+":
+            result = num1 + num2
+        elif operation == "-":
+            result = num1 - num2
+        elif operation == "*":
+            result = num1 * num2
+        elif operation == "/":
+            if num2 == 0:
+                raise ZeroDivisionError("Cannot divide by zero!")
+            result = num1 / num2
+        else:
+            raise ValueError("Invalid operation selected!")
 
-def divide(x, y):
-    if y == 0:
-        return "Error! Division by zero is not allowed."
-    else:
-        return x / y
+        result_label.config(text=f"Result: {result}")
+    except ValueError as ve:
+        messagebox.showerror("Error", str(ve))
+    except ZeroDivisionError as zde:
+        messagebox.showerror("Error", str(zde))
 
-print("Welcome to Simple Calculator")
+# Create the main window
+window = tk.Tk()
+window.title("Simple Calculator")
 
-while True:
-    print("\nSelect operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-    print("5. Exit")
+# Create entry boxes for numbers
+entry_num1 = tk.Entry(window)
+entry_num1.grid(row=0, column=0, padx=5, pady=5)
 
-    choice = input("Enter choice (1/2/3/4/5): ")
+entry_num2 = tk.Entry(window)
+entry_num2.grid(row=0, column=1, padx=5, pady=5)
 
-    if choice in ('1', '2', '3', '4'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+# Create a dropdown menu for operations
+operation_var = tk.StringVar()
+operation_choices = ["+", "-", "*", "/"]
+operation_dropdown = tk.OptionMenu(window, operation_var, *operation_choices)
+operation_dropdown.grid(row=0, column=2, padx=5, pady=5)
+operation_var.set("+")  # Set default operation to addition
 
-        if choice == '1':
-            print("Result:", add(num1, num2))
-        elif choice == '2':
-            print("Result:", subtract(num1, num2))
-        elif choice == '3':
-            print("Result:", multiply(num1, num2))
-        elif choice == '4':
-            print("Result:", divide(num1, num2))
-    elif choice == '5':
-        print("Exiting...")
-        break
-    else:
-        print("Invalid input! Please enter a valid choice.")
+# Create a button to perform calculation
+calculate_button = tk.Button(window, text="Calculate", command=calculate)
+calculate_button.grid(row=1, column=0, columnspan=3, padx=5, pady=5)
+
+# Create a label to display the result
+result_label = tk.Label(window, text="Result: ")
+result_label.grid(row=2, column=0, columnspan=3, padx=5, pady=5)
+
+window.mainloop()
