@@ -1,52 +1,76 @@
-import tkinter as tk
+from tkinter import *
 import random
 import string
+import pyperclip
+from tkinter import messagebox
 
-def generate_password():
-    password_length = int(length_entry.get())
+root = Tk()
+root.geometry("400x280")
+root.title("Password Generator")
+root.resizable(0,0)
 
-    if password_length <= 0:
-        password_label.config(text="Please enter a valid password length.")
-        return
+title = StringVar()
+label = Label(root, textvariable=title)
+label.place(x=8,y=5)
+title.set("The strength of the password:")
 
-    complexity = complexity_var.get()
-    if complexity == "Low":
-        chars = string.ascii_letters
-    elif complexity == "Medium":
-        chars = string.ascii_letters + string.digits
+def selection():
+    selection = choice.get()
+
+choice = IntVar()
+R1 = Radiobutton(root, text="POOR", variable=choice, value=1, command=selection)
+R1.place(x=5,y=25)
+R2 = Radiobutton(root, text="AVERAGE", variable=choice, value=2, command=selection)
+R2.place(x=5,y=45)
+R3 = Radiobutton(root, text="STRONG", variable=choice, value=3, command=selection)
+R3.place(x=5,y=65)
+
+labelchoice = Label(root)
+labelchoice.place(x=5,y=5)
+
+lenlabel = StringVar()
+lenlabel.set("Password length:")
+lentitle = Label(root, textvariable=lenlabel)
+lentitle.place(x=5,y=85)
+
+val = IntVar()
+spinlenght = Spinbox(root, from_=8, to_=24, textvariable=val, width=13)
+spinlenght.place(x=5,y=105)
+
+def callback():
+    if choice.get() == 0:
+        messagebox.showwarning("Warning", "Please select the strength of the password.")
     else:
-        chars = string.ascii_letters + string.digits + string.punctuation
+        password = passgen()
+        lsum.config(text=password)
+        pyperclip.copy(password)
 
-    password = ''.join(random.choice(chars) for _ in range(password_length))
-    password_label.config(text=f"Generated Password: {password}")
+passgenButton = Button(root, text="Generate Password", bd=5, command=callback, pady=3)
+passgenButton.place(x=5,y=145)
 
-# Create the main window
-window = tk.Tk()
-window.title("Password Generator")
+def copy_callback():
+    password = lsum.cget("text")
+    pyperclip.copy(password)
+    messagebox.showinfo("Success", "Password copied to clipboard!")
 
-# Create entry for password length
-length_label = tk.Label(window, text="Password Length:")
-length_label.grid(row=0, column=0, padx=5, pady=5)
+copyButton = Button(root, text="Copy to Clipboard", bd=5, command=copy_callback, pady=3)
+copyButton.place(x=150, y=145)
 
-length_entry = tk.Entry(window)
-length_entry.grid(row=0, column=1, padx=5, pady=5)
+lsum = Label(root, text="")
+lsum.pack(side=BOTTOM)
 
-# Create dropdown for complexity
-complexity_label = tk.Label(window, text="Complexity:")
-complexity_label.grid(row=1, column=0, padx=5, pady=5)
+# function
+poor= string.ascii_uppercase + string.ascii_lowercase
+average= string.ascii_uppercase + string.ascii_lowercase + string.digits
+symbols = """`~!@#$%^&*()_-+={}[]\|:;"'<>,.?/"""
+advance = poor + average + symbols
 
-complexity_var = tk.StringVar()
-complexity_choices = ["Low", "Medium", "High"]
-complexity_dropdown = tk.OptionMenu(window, complexity_var, *complexity_choices)
-complexity_dropdown.grid(row=1, column=1, padx=5, pady=5)
-complexity_var.set("Medium")  # Set default complexity
+def passgen():
+    if choice.get() == 1:
+         return "".join(random.sample(poor, val.get()))
+    elif choice.get() == 2:
+        return "".join(random.sample(average, val.get()))
+    elif choice.get() == 3:
+         return "".join(random.sample(advance, val.get()))
 
-# Create button to generate password
-generate_button = tk.Button(window, text="Generate Password", command=generate_password)
-generate_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
-
-# Create label to display generated password
-password_label = tk.Label(window, text="")
-password_label.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
-
-window.mainloop()
+root.mainloop()
