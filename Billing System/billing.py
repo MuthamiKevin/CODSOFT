@@ -399,7 +399,9 @@ class Bill_App:
             self.grocery_price.set("")
             self.cold_drinks_price.set("")
 
-         
+            self.medical_tax.set("")
+            self.grocery_tax.set("")
+            self.cold_drinks_tax.set("")
 
             self.c_name.set("")
             self.c_phone.set("")
