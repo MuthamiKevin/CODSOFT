@@ -403,16 +403,6 @@ class Bill_App:
             self.grocery_tax.set("")
             self.cold_drinks_tax.set("")
 
-            self.c_name.set("")
-            self.c_phone.set("")
-
-            self.bill_no.set("")
-            x = random.randint(1000, 9999)
-            self.bill_no.set(str(x))
-
-            self.search_bill.set("")
-            self.welcome_bill()
-
     # ===========exit=======================
     def exit_app(self):
         op = messagebox.askyesno("Exit", "Do you really want to exit?")
